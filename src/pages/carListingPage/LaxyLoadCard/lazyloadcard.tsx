@@ -3,22 +3,14 @@ import CarCard from "../CarCard/carCard";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { CardShimmer } from "../../../components/Shimmer/CardShimmer";
-interface Car {
-  brand: string;
-  model: string;
-  imageUrl: string;
-  vehicleType: string;
-  price: number;
-  rating: number;
-  description: string;
-  mileage: string;
-  transmission: string;
-  seatingCapacity: number;
-  stock: number;
+import type { Car } from "../../../store/carSlice";
+
+interface LazyLoadCardProps {
+  car: Car;
+  onEdit?: (car: Car) => void;
 }
 
-
-export const LazyLoadCard = ({ car, onEdit }: { car: Car; onEdit?: (car: Car) => void }) => {
+export const LazyLoadCard = ({ car, onEdit }: LazyLoadCardProps) => {
   const { userRole } = useAuth();
   const [hasLoaded, setHasLoaded] = useState(false);
   const [ref, isVisible] = useIntersectionObserver();

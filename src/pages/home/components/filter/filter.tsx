@@ -31,7 +31,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
   const brands = ['BMW', 'Mercedes', 'Audi', 'Toyota', 'Honda', 'Ford'];
   const vehicleTypes = ['Petrol', 'Diesel', 'Electric', 'Hybrid'];
 
-  const handlePriceChange = (event: Event, newValue: number | number[]) => {
+  const handlePriceChange = (_: Event, newValue: number | number[]) => {
     const updatedFilters = { ...filters, priceRange: newValue as [number, number] };
     dispatch({ type: 'SET_PRICE_RANGE', payload: newValue as [number, number] });
     onFilterChange(updatedFilters);
@@ -55,7 +55,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
     onFilterChange(updatedFilters);
   };
 
-  const handleRatingChange = (event: React.SyntheticEvent, newValue: number | null) => {
+  const handleRatingChange = (_: React.SyntheticEvent, newValue: number | null) => {
     dispatch({ type: 'SET_RATING', payload: newValue || 0 });
     const updatedFilters = { ...filters, minRating: newValue || 0 };
     onFilterChange(updatedFilters);

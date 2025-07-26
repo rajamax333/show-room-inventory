@@ -7,7 +7,6 @@ import './App.css';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import { HomePage } from './pages/home/home.tsx';
 import CarDetailPage from './pages/carDetailPage/CarDetailPage';
-import PurchasesPage from './pages/purchasesPage/PurchasesPage';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -48,10 +47,10 @@ function App() {
           path="/car/:id" 
           element={user ? <CarDetailPage /> : <Navigate to="/login" replace />} 
         />
-        <Route 
+        {/* <Route 
           path="/purchases" 
           element={user ? <PurchasesPage /> : <Navigate to="/login" replace />} 
-        />
+        /> */}
         <Route 
           path="/" 
           element={<Navigate to={user ? "/home" : "/login"} replace />} 

@@ -29,7 +29,7 @@ export const CarListingPage = () => {
   const isAdmin = userRole === 'admin';
 
   // Handle page change
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
     dispatch(fetchCars({ 
       pagination: { page: value, limit: 10 },
       filters: {

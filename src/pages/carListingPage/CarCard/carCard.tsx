@@ -25,27 +25,11 @@ import {
 import { useAuth } from '../../../hooks/useAuth';
 import { useAppDispatch } from '../../../store/hooks';
 import { deleteCar } from '../../../store/carSlice';
-import { purchaseCar } from '../../../services/carservices'
 import { Shimmer } from '../../../components/Shimmer/Shimmer';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
-interface Car {
-  id?: string;
-  brand: string;
-  model: string;
-  imageUrl: string;
-  vehicleType: string;
-  price: number;
-  rating: number;
-  description: string;
-  mileage: string;
-  transmission: string;
-  seatingCapacity: number;
-  stock: number;
-  year?: number;
-}
+import type { Car } from "../../../store/carSlice";
 
 const CarCard: React.FC<{ car: Car; onEdit?: (car: Car) => void }> = ({ car, onEdit }) => {
   const navigate = useNavigate();
@@ -62,7 +46,7 @@ const CarCard: React.FC<{ car: Car; onEdit?: (car: Car) => void }> = ({ car, onE
 
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { userRole, currentUser } = useAuth();
+  const { userRole } = useAuth();
   const dispatch = useAppDispatch();
   const [imageLoaded, setImageLoaded] = useState(false);
 

@@ -6,7 +6,7 @@ import {
   DialogActions,
   TextField,
   Button,
-  Grid,
+  Box,
 } from '@mui/material';
 import { useAppDispatch } from '../../store/hooks';
 import { addCar, updateCar } from '../../store/carSlice';
@@ -117,8 +117,8 @@ const CarForm: React.FC<CarFormProps> = ({ open, onClose, car }) => {
       <DialogTitle>{car ? 'Edit Car' : 'Add New Car'}</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Box display="flex" gap={2}>
               <TextField
                 fullWidth
                 label="Brand"
@@ -126,8 +126,6 @@ const CarForm: React.FC<CarFormProps> = ({ open, onClose, car }) => {
                 onChange={(e) => handleChange('brand', e.target.value)}
                 required
               />
-            </Grid>
-            <Grid item xs={6}>
               <TextField
                 fullWidth
                 label="Model"
@@ -135,8 +133,8 @@ const CarForm: React.FC<CarFormProps> = ({ open, onClose, car }) => {
                 onChange={(e) => handleChange('model', e.target.value)}
                 required
               />
-            </Grid>
-            <Grid item xs={6}>
+            </Box>
+            <Box display="flex" gap={2}>
               <TextField
                 fullWidth
                 label="Price"
@@ -145,8 +143,6 @@ const CarForm: React.FC<CarFormProps> = ({ open, onClose, car }) => {
                 onChange={(e) => handleChange('price', Number(e.target.value))}
                 required
               />
-            </Grid>
-            <Grid item xs={6}>
               <TextField
                 fullWidth
                 label="Stock"
@@ -155,17 +151,15 @@ const CarForm: React.FC<CarFormProps> = ({ open, onClose, car }) => {
                 onChange={(e) => handleChange('stock', Number(e.target.value))}
                 required
               />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Image URL"
-                value={formData.imageUrl}
-                onChange={(e) => handleChange('imageUrl', e.target.value)}
-                required
-              />
-            </Grid>
-          </Grid>
+            </Box>
+            <TextField
+              fullWidth
+              label="Image URL"
+              value={formData.imageUrl}
+              onChange={(e) => handleChange('imageUrl', e.target.value)}
+              required
+            />
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
