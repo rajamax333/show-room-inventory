@@ -1,0 +1,42 @@
+@use '../../../../styles/mixins.modules.scss' as mixins;
+@use '../../../../styles/variables.modules.scss' as variables;
+
+.appHeader {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  padding: 1.4rem; 
+  max-width: 1200px;
+  gap: 1rem;
+  border-bottom: 1px solid variables.$border-color;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+
+  @media (max-width: 768px) {
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+
+.userSection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: stretch;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  width: 100%;
+}
+
+.filterIcon {
+  @media (min-width: 769px) {
+    display: none !important;
+  }
+}

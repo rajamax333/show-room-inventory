@@ -1,0 +1,71 @@
+@use './variables.modules.scss' as vars;
+
+@mixin flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Base button styles
+@mixin btn-base {
+    padding: vars.$btn-padding;
+    border-radius: vars.$btn-border-radius;
+    font-size: vars.$btn-font-size;
+    font-weight: vars.$btn-font-weight;
+    border: none;
+    cursor: pointer;
+    transition: vars.$btn-transition;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-shadow: vars.$btn-shadow;
+    
+    &:hover {
+        box-shadow: vars.$btn-hover-shadow;
+        transform: translateY(-1px);
+    }
+    
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+// Primary button
+@mixin btn-primary {
+    @include btn-base;
+    background: linear-gradient(135deg, vars.$primary-color, vars.$primary-hover);
+    color: vars.$white;
+    
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, vars.$primary-hover, vars.$primary-dark);
+    }
+}
+
+// Secondary button
+@mixin btn-secondary {
+    @include btn-base;
+    background: vars.$white;
+    color: vars.$primary-color;
+    border: 2px solid vars.$primary-color;
+    
+    &:hover:not(:disabled) {
+        background: vars.$primary-color;
+        color: vars.$white;
+    }
+}
+
+// Outline button
+@mixin btn-outline {
+    @include btn-base;
+    background: transparent;
+    color: vars.$primary-color;
+    border: 2px solid vars.$border-color;
+    
+    &:hover:not(:disabled) {
+        border-color: vars.$primary-color;
+        background: vars.$primary-color;
+        color: vars.$white;
+    }
+}

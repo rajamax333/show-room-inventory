@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { onAuthStateChanged, type User } from 'firebase/auth';
+import { auth } from './firebase';
+import Login from './components/loginPage/Login.tsx';
+import './App.css';
+import { AuthProvider } from './contexts/AuthContext.tsx';
+import { HomePage } from './pages/home/home.tsx';
+import CarDetailPage from './pages/carDetailPage/CarDetailPage';
+import PurchasesPage from './pages/purchasesPage/PurchasesPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="loader-spinner"></div>
+        <p>Loading your car inventory...</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <Routes>
+        <Route 
+          path="/login" 
+          element={!user ? <Login /> : <Navigate to="/home" replace />} 
+        />
+        <Route 
+          path="/home" 
+          element={user ? <HomePage user={user} /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/car/:id" 
+          element={user ? <CarDetailPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/purchases" 
+          element={user ? <PurchasesPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/" 
+          element={<Navigate to={user ? "/home" : "/login"} replace />} 
+        />
+      </Routes>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
