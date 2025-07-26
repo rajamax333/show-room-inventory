@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npx msw init dist --save",
     "lint": "eslint .",
     "preview": "vite preview"
   },
